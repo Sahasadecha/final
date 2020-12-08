@@ -1,0 +1,442 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <!-- Required meta tags -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+        <!-- Bootstrap CSS -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
+        <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+        <title>โปรแกรมคำนวณความคุ้มค่า</title>
+        <script src="javasc/script1.js"></script>
+        <script src="http://d3js.org/d3.v3.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.16/c3.js"></script>
+    </head>
+    <body style="background-image: url(images/Agriculture2.jpg); background-repeat: no-repeat; background-attachment: fixed; background-size: cover;">
+            <!-- Navbar -->
+        <div>
+            <div class="sticky-top">
+                <div class="w3-bar w3-white w3-large w3-padding w3-card">
+                    <a href="homeAdmin.html" class="w3-bar-item w3-button">โปรแกรมคำนวณความคุ้มค่า</a>
+                    <!-- Float links to the right. Hide them on small screens -->
+                    <div class="w3-hide-small">
+                        <a href="admin.html" class="w3-bar-item w3-button">รถเกี่ยวนวดข้าว</a>
+                        <a href="SugarcaneHarvester.html" class="w3-bar-item w3-button">รถตัดอ้อย</a>
+
+                        <a href="#about" class="w3-right w3-bar-item w3-button">เกี่ยวกับ</a>
+                        <a href="home.html" class="w3-right w3-bar-item w3-button">Log out</a>
+                        <a href="statics.html" class="w3-right w3-bar-item w3-button">สถิติ</a>
+                    </div>
+                </div>
+            </div>
+            <div id="hideThis1" class="w3-animate-top">
+                <div class="container w3-card w3-light-grey w3-round-xlarge w3-padding-16 w3-section" id="General_Info" >
+                    <p class="w3-wide w3-padding w3-xlarge">ข้อมูลทั่วไป</p>
+                    <div class="w3-container w3-section w3-card w3-light-grey w3-round-xlarge w3-padding-16">
+                        <!-- <form action=""> -->
+                            <div class="form-group">
+                                <label for="zone">เลือกภูมิภาค:</label>
+                                <select class="w3-border w3-round-large form-control" id="zone" name="zone">
+                                    <option value="">เลือกภูมิภาค</option>
+                                    <option value="north">เหนือ</option>
+                                    <option value="middle">กลาง</option>
+                                    <option value="northEast" >ตะวันออกตะวันออกเฉียงเหนือ</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="price_1st">ราคาแรกซื้อ:</label>
+                                <div class="input-group">
+                                    <input class="w3-border w3-round-large form-control" type="number" id="p" name="p" required value="">
+                                    <div class="input-group-addon">
+                                        <span class="input-group-text"><b>บาท</b></span>
+                                    </div>
+                                </div>                       
+                            </div>
+                            <div class="form-group">
+                                <label for="price_thought_sold">ราคาที่คาดว่าจะขายได้เมื่อเลิกใช้:</label>
+                                <div class="input-group">
+                                    <input class="w3-border w3-round-large form-control" type="number" id="s" name="sha384-ho" required value="">
+                                    <div class="input-group-addon">
+                                        <span class="input-group-text"><b>บาท</b></span>
+                                    </div>
+                                </div>                       
+                            </div>
+                            <div class="form-group">
+                                <label for="how_years">คาดว่าจะใช้งานเครื่องกี่ปี:</label>
+                                <div class="input-group">
+                                    <input class="w3-border w3-round-large form-control" type="number" id="y" name="y" required value="">
+                                    <div class="input-group-addon">
+                                        <span class="input-group-text"><b>ปี</b></span>
+                                    </div>
+                                </div>                       
+                            </div>
+                            <div class="form-group">
+                                <label for="interest_rate">อัตราดอกเบี้ย:</label>
+                                <div class="input-group">
+                                    <input class="w3-border w3-round-large form-control" type="number" id="i" name="i" required value="">
+                                    <div class="input-group-addon">
+                                        <span class="input-group-text"><b>ร้อยละ</b></span>
+                                    </div>
+                                </div>                       
+                            </div>
+                        <!-- </form> -->
+                    </div>
+                </div>
+
+                <div class="container w3-card w3-light-grey w3-round-xlarge w3-padding-16 w3-section" id="Cost_Info">
+                    <p class="w3-wide w3-padding w3-xlarge">ข้อมูลค่าใช้จ่าย</p>
+                    <div class="w3-container w3-section w3-card w3-light-grey w3-round-xlarge w3-padding-16">
+                        <!-- <form action=""> -->
+                            <div class="form-group">
+                                <label for="drivAndMach">ค่าคนขับและดูแลเครื่อง:</label>
+                                <div class="input-group">
+                                    <input class="w3-border w3-round-large form-control" type="number" id="la" name="la" value="">
+                                    <div class="input-group-addon">
+                                        <span class="input-group-text"><b>บาท</b></span>
+                                    </div>
+                                </div>                       
+                            </div>
+                            <div class="form-group">
+                                <label for="commission">ค่านายหน้า:</label>
+                                <div class="input-group">
+                                    <input class="w3-border w3-round-large form-control" type="number" id="ja" name="ja" placeholder="0" value="">
+                                    <div class="input-group-addon">
+                                        <span class="input-group-text"><b>บาท</b></span>
+                                    </div>
+                                </div>                       
+                            </div>
+                            <div class="form-group">
+                                <label for="fuel_rate">อัตราการใช้น้ำมันเชื้อเพลิง:</label>
+                                <div class="input-group">
+                                    <input class="w3-border w3-round-large form-control" type="number" id="fa" name="fa" required value="">
+                                    <div class="input-group-addon">
+                                        <span class="input-group-text"><b>ลิตร/ไร่</b></span>
+                                    </div>
+                                </div>                       
+                            </div>
+                            <div class="form-group">
+                                <label for="fuel_price">ราคาน้ำมันเชื้อเพลิง:</label>
+                                <div class="input-group">
+                                    <input class="w3-border w3-round-large form-control" type="number" id="fc" name="fc" required value="">
+                                    <div class="input-group-addon">
+                                        <span class="input-group-text"><b>บาท/ลิตร</b></span>
+                                    </div>
+                                </div>                       
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fuel_price">รอบการเปลี่ยนน้ำมันเครื่องทุกการใช้งานกี่ไร่:</label>
+                                <div class="input-group">
+                                    <input class="w3-border w3-round-large form-control" type="number" id="oa" name="oa" required value="">
+                                    <div class="input-group-addon">
+                                        <span class="input-group-text"><b>ไร่</b></span>
+                                    </div>
+                                </div>                       
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fuel_price">จำนวนน้ำมันเครื่องที่จะต้องเปลี่ยนในแต่ละครั้ง:</label>
+                                <div class="input-group">
+                                    <input class="w3-border w3-round-large form-control" type="number" id="ol" name="ol" required value="">
+                                    <div class="input-group-addon">
+                                        <span class="input-group-text"><b>ลิตร</b></span>
+                                    </div>
+                                </div>                       
+                            </div>
+
+                            <div class="form-group">
+                                <label for="fuel_price">ราคาน้ำมันเครื่อง:</label>
+                                <div class="input-group">
+                                    <input class="w3-border w3-round-large form-control" type="number" id="oc" name="oc" required value="">
+                                    <div class="input-group-addon">
+                                        <span class="input-group-text"><b>บาท/ลิตร</b></span>
+                                    </div>
+                                </div>                       
+                            </div>  
+
+                            <div class="form-group">
+                                <label for="garage_price">ค่าโรงเก็บเครื่อง:</label>
+                                <div class="input-group">
+                                    <input class="w3-border w3-round-large form-control" type="number" id="g" name="g" required value="">
+                                    <div class="input-group-addon">
+                                        <span class="input-group-text"><b>บาท/ปี</b></span>
+                                    </div>
+                                </div>                       
+                            </div>
+
+                            <div class="form-group">
+                                <label for="tax_insu">ค่าภาษี/ประกัน:</label>
+                                <div class="input-group">
+                                    <input class="w3-border w3-round-large form-control" type="number" id="t" name="t" value="">
+                                    <div class="input-group-addon">
+                                        <span class="input-group-text"><b>บาท/ปี</b></span>
+                                    </div>
+                                </div>                       
+                            </div>
+                            <div class="form-group">
+                                <label for="other_expenses">ค่าใช้จ่ายอื่นๆ:</label>
+                                <div class="input-group">
+                                    <input class="w3-border w3-round-large form-control" type="number" id="e" name="e" placeholder="0" value="">
+                                    <div class="input-group-addon">
+                                        <span class="input-group-text"><b>บาท/ปี</b></span>
+                                    </div>
+                                </div>                       
+                            </div>
+
+                        <!-- </form> -->
+                    </div>
+                </div>  
+
+                <div class="container w3-card w3-light-grey w3-round-xlarge w3-padding-16 w3-section" id="Work_in_year" >
+                    <p class="w3-wide w3-padding w3-xlarge">ข้อมูลการทำงานในรอบปี(ประมาณการ)</p>
+                    <div class="w3-container w3-section w3-card w3-light-grey w3-round-xlarge w3-padding-16">
+                        <!-- <form action=""> -->
+                            <div class="form-group">
+                                <label for="workload">พื้นที่เก็บเกี่ยวข้าวนาปี:</label>
+                                <div class="input-group">
+                                    <input class="w3-border w3-round-large form-control" type="number" id="af" name="af" required value="">
+                                    <div class="input-group-addon">
+                                        <span class="input-group-text"><b>ไร่</b></span>
+                                    </div>
+                                </div>                       
+                            </div>
+
+                            <div class="form-group">
+                                <label for="workload">พื้นที่เก็บเกี่ยวข้าวนาปรัง:</label>
+                                <div class="input-group">
+                                    <input class="w3-border w3-round-large form-control" type="number" id="as" name="as" required value="">
+                                    <div class="input-group-addon">
+                                        <span class="input-group-text"><b>ไร่</b></span>
+                                    </div>
+                                </div>                       
+                            </div>
+
+
+                            <div class="form-group">
+                                <label for="wages_of_harvest">ค่าจ้างเก็บเกี่ยวข้าวนาปี:</label>
+                                <div class="input-group">
+                                    <input class="w3-border w3-round-large form-control" type="number" id="wf" name="wf" required value="">
+                                    <div class="input-group-addon">
+                                        <span class="input-group-text"><b>บาท/ไร่</b></span>
+                                    </div>
+                                </div>                       
+                            </div>
+
+                            <div class="form-group">
+                                <label for="wages_of_harvest">ค่าจ้างเก็บเกี่ยวข้าวนาปรัง:</label>
+                                <div class="input-group">
+                                    <input class="w3-border w3-round-large form-control" type="number" id="ws" name="ws" required value="">
+                                    <div class="input-group-addon">
+                                        <span class="input-group-text"><b>บาท/ไร่</b></span>
+                                    </div>
+                                </div>                       
+                            </div>
+
+                            <div class="form-group">
+                                <label for="wages_of_harvest">ความสามารถในการทำงานเครื่อง:</label>
+                                <div class="input-group">
+                                    <input class="w3-border w3-round-large form-control" type="number" id="w" name="w" required value="">
+                                    <div class="input-group-addon">
+                                        <span class="input-group-text"><b>ไร่/วัน</b></span>
+                                    </div>
+                                </div>                       
+                            </div>
+
+                            <div class="w3-right">
+                                <button class="btn btn-primary w3-large" data-toggle="collapse" data-target="#hideThis2" type="button" onclick="calFarmer()">แสดงผล</button>
+                            </div>
+                        <!-- </form> -->
+                    </div>
+                </div>
+            </div>    
+        </div>
+        <div class="w3-animate-top collapse" id="hideThis2">
+            <div class="container w3-card w3-light-grey w3-round-xlarge w3-padding-16 w3-section" id="General_Info" >
+                <p class="w3-wide w3-padding w3-xlarge">ค่าใช้จ่ายคงที่</p>
+                <div class="w3-container w3-section w3-card w3-light-grey w3-round-xlarge w3-padding-16">
+                    <!-- <form action=""> -->
+                        <div class="form-group">    
+                            <label for="d">ค่าเสื่อมราคา:</label>
+                            <div class="input-group">
+                                <output class="w3-border w3-round-large form-control" id="d" name="d" >-</output>
+                                <div class="input-group-addon">
+                                    <span class="input-group-text"><b>บาท/ปี</b></span>
+                                </div>
+                            </div>                       
+                        </div>
+                        <div class="it-group">       
+                            <label for="price_1st">ค่าดอกเบี้ย:</label>
+                            <div class="input-group">
+                                <output class="w3-border w3-round-large form-control" id="it" name="it" >-</output>
+                                <div class="input-group-addon">
+                                    <span class="input-group-text"><b>บาท/ปี</b></span>
+                                </div>
+                            </div>  
+                        </div>
+                            <label for="g2">ค่าโรงเก็บค่าเครื่อง:</label>
+                            <div class="input-group">
+                                <output class="w3-border w3-round-large form-control" id="g2" name="g2" >-</output>
+                                <div class="input-group-addon">
+                                    <span class="input-group-text"><b>บาท/ปี</b></span>
+                                </div>
+                            </div>  
+                        <div class="form-group">   
+                            <label for="t2">ค่าภาษี/ประกัน:</label>
+                            <div class="input-group">
+                                <output class="w3-border w3-round-large form-control" id="t2" name="t2" >-</output>
+                                <div class="input-group-addon">
+                                    <span class="input-group-text"><b>บาท/ปี</b></span>
+                                </div>
+                            </div>  
+                        </div>
+                            <label for="e2">ค่าใช้จ่ายอื่นๆ:</label>
+                            <div class="input-group">
+                                <output class="w3-border w3-round-large form-control" id="e2" name="e2" >-</output>
+                                <div class="input-group-addon">
+                                    <span class="input-group-text"><b>บาท/ปี</b></span>
+                                </div>
+                            </div>  
+                        <div class="form-group">   
+                            <label for="sum">รวมค่าใช้จ่ายคงที่:</label> 
+                            <div class="input-group">
+                                <output class="w3-border w3-round-large form-control" id="sum" name="sum" >-</output>
+                                <div class="input-group-addon">
+                                    <span class="input-group-text"><b>บาท/ปี</b></span>
+                                </div>
+                            </div>  
+                        </div>
+                    <!-- </form> -->
+                </div>
+            </div>
+
+            <div class="container w3-card w3-light-grey w3-round-xlarge w3-padding-16 w3-section" id="Cost_Info">
+                <p class="w3-wide w3-padding w3-xlarge">ค่าใช้จ่ายแปรผัน</p>
+                <div class="w3-container w3-section w3-card w3-light-grey w3-round-xlarge w3-padding-16">
+                    <!-- <form action=""> -->
+                        <div class="form-group">   
+                            <label for="driver">ค่าคนขับและดูแลเครื่อง:</label> 
+                            <div class="input-group">
+                                <output class="w3-border w3-round-large form-control" id="driver" name="driver" >-</output>
+                                <div class="input-group-addon">
+                                    <span class="input-group-text"><b>บาท/ปี</b></span>
+                                </div>
+                            </div>  
+                        </div>
+                        <div class="form-group">   
+                            <label for="broker">ค่านายหน้า:</label> 
+                            <div class="input-group">
+                                <output class="w3-border w3-round-large form-control" id="broker" name="broker" >-</output>
+                                <div class="input-group-addon">
+                                    <span class="input-group-text"><b>บาท/ปี</b></span>
+                                </div>
+                            </div>  
+                        </div>
+                        <div class="form-group">   
+                            <label for="fuel">ค่าน้ำมันเชื้อเพลิง:</label> 
+                            <div class="input-group">
+                                <output class="w3-border w3-round-large form-control" id="fuel" name="fuel" >-</output>
+                                <div class="input-group-addon">
+                                    <span class="input-group-text"><b>บาท/ปี</b></span>
+                                </div>
+                            </div>  
+                        </div>
+                        <div class="form-group">   
+                            <label for="power">ค่าน้ำมันเครื่อง:</label> 
+                            <div class="input-group">
+                                <output class="w3-border w3-round-large form-control" id="power" name="power" >-</output>
+                                <div class="input-group-addon">
+                                    <span class="input-group-text"><b>บาท/ปี</b></span>
+                                </div>
+                            </div>  
+                        </div>
+                        <div class="form-group">   
+                            <label for="repair">ค่าซ่อมแซนและบำรุงรักษา:</label> 
+                            <div class="input-group">
+                                <output class="w3-border w3-round-large form-control" id="repair" name="repair" >-</output>
+                                <div class="input-group-addon">
+                                    <span class="input-group-text"><b>บาท/ปี</b></span>
+                                </div>
+                            </div>  
+                        </div>
+                        <div class="form-group">   
+                            <label for="move">ค่าขนย้ายเครื่อง:</label> 
+                            <div class="input-group">
+                                <output class="w3-border w3-round-large form-control" id="move" name="move" >-</output>
+                                <div class="input-group-addon">
+                                    <span class="input-group-text"><b>บาท/ปี</b></span>
+                                </div>
+                            </div>  
+                        </div>
+                        <div class="form-group">   
+                            <label for="costAll">รวมค่าใช้จ่ายแปรผัน:</label> 
+                            <div class="input-group">
+                                <output class="w3-border w3-round-large form-control" id="costAll" name="costAll" >-</output>
+                                <div class="input-group-addon">
+                                    <span class="input-group-text"><b>บาท/ปี</b></span>
+                                </div>
+                            </div>  
+                        </div>
+                    <!-- </form> -->
+                </div>
+            </div>  
+            <div class="container w3-card w3-light-grey w3-round-xlarge w3-padding-16 w3-section">
+                <p class="w3-wide w3-padding w3-xlarge">รายรับจากการรับจ้างเก็บเกี่ยว</p>
+                <div class="w3-container w3-section w3-card w3-light-grey w3-round-xlarge w3-padding-16">
+                    <!-- <form action=""> -->
+                        <div class="form-group">   
+                            <label for="costFarm">ค่าจ้างเกี่ยวนวดข้าว:</label> 
+                            <div class="input-group">
+                                <output class="w3-border w3-round-large form-control" id="costFarm" name="costFarm" >-</output>
+                                <div class="input-group-addon">
+                                    <span class="input-group-text"><b>บาท/ปี</b></span>
+                                </div>
+                            </div>  
+                        </div>
+
+                    <!-- </form> -->
+                </div>
+            </div>
+            <div class="container w3-card w3-light-grey w3-round-xlarge w3-padding-16 w3-section" >
+                <p class="w3-wide w3-padding w3-xlarge">ระยะเวลาคืนทุน</p>
+                <div class="w3-container w3-section w3-card w3-light-grey w3-round-xlarge w3-padding-16">
+                    <!-- <form action=""> -->
+                        <div class="form-group">   
+                            <label for="reCost">ระยะเวลาคืนทุน:</label> 
+                            <div class="input-group">
+                                <output class="w3-border w3-round-large form-control" id="reCost" name="reCost" >-</output>
+                                <div class="input-group-addon">
+                                    <span class="input-group-text"><b>ปี</b></span>
+                                </div>
+                            </div>  
+                        </div>
+                        
+                        <div class="w3-right">
+                            <button class="btn btn-primary w3-large" type="button" onclick="graph()">กราฟ</button>
+                        </div>
+                    <!-- </form> -->
+                </div>
+            </div>
+            <div class="container w3-card w3-light-grey w3-round-xlarge w3-padding-16 w3-section" >
+                <p class="w3-wide w3-padding">ระยะเวลาคืนทุน</p>
+                <div class="w3-container w3-section w3-card w3-light-grey w3-round-xlarge w3-padding-16">
+                    <!-- <form action=""> -->
+                    <div class="bg-light text-dark" id="chart"></div>
+                    <!-- </form> -->
+                </div>
+            </div>
+        </div>    
+    </div>
+        <!-- Optional JavaScript; choose one of the two! -->
+        
+        <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
+
+        <!-- Option 2: jQuery, Popper.js, and Bootstrap JS
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" integrity="sha384-w1Q4orYjBQndcko6MimVbzY0tgp4pWB4lZ7lr30WKz0vr/aWKhXdBNmNb5D92v7s" crossorigin="anonymous"></script>
+        -->
+    </body>
+</html>
